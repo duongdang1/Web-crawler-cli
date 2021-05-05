@@ -69,9 +69,8 @@ while counter <= 2933:
         list_l = soup.find_all(class_="stats-title")
         for stats in list_l: 
             stats_text = stats.text
-            stats_text.strip()
-            stats_text_strip = stats_text.lstrip()
-            exp_list.append(stats_text_strip)
+            
+            exp_list.append(stats_text)
         
         DATA.append(exp_list)
 
