@@ -1,12 +1,13 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+
 cookies = {
     'CookieConsent': '{stamp:%27-1%27%2Cnecessary:true%2Cpreferences:true%2Cstatistics:true%2Cmarketing:true%2Cver:1%2Cutc:1619575001259%2Cregion:%27VN%27}',
     '_ga': 'GA1.3.1721776623.1619575033',
     '_gid': 'GA1.3.1280940627.1619963592',
-    'XSRF-TOKEN': 'eyJpdiI6Iktkc0dGdEExcTBoVUd0c3FKcVRncWc9PSIsInZhbHVlIjoiaFc2XC9PdldjckhrXC9TbmFMdGN1MlRTcnBYV2JWU1RVbUNqUTFyQUthZzU5eUYyREV6WVloZGk0T2U5dU1yQ2VTIiwibWFjIjoiYmI4MmE0M2JlNWFhMmZjZWRlNjQ3OWI0YTY1MDZlMDFiMzVmMDBkYjViNTEyYzhlMjU0MzlmMWE0ZDU4ZWM1YSJ9',
-    'exploit_database_session': 'eyJpdiI6Ilo0dzhvSzhxTlpXYk9tRis3TWV1aWc9PSIsInZhbHVlIjoiaDNsSzNqNU5PWHJqMVZIUE5YTU9GV2hJWnZiVHNUejlTSnlLOFRicUc5R283ekd6XC9XMnRPZkU1XC9uTnA1RWExIiwibWFjIjoiMTI5MzFhZDVjNjMyYTBjNmNiNzgxMTI4MjAzMzIyNzJjN2I0OTc0Y2ZmNzZlNmQ1MGIzZDVlYmFhYThjNzc0YSJ9',
+    'XSRF-TOKEN': 'eyJpdiI6IjFGVzJaZ1wvTWdkb0FRSTlxdTgyNkJnPT0iLCJ2YWx1ZSI6IjdMeTN4MEo5azE4QnJUbGp4MmIrNnd4SkxcLzJIQWwrd25WMnV2SFFCR0FQdHFoM3YzUHIyMDkzZGw1anVuNWpBIiwibWFjIjoiOTJkZDRjNGNhMWFlNGM0Njk3MzY2M2VjYmJjMTU5MTljNjQ0Yjg4MGNhMWU4YTVkZmZkOGNmOGNiNTRmMzUwOSJ9',
+    'exploit_database_session': 'eyJpdiI6InZvY2FidUpjTllLZXBudVF3MkNDdUE9PSIsInZhbHVlIjoiY2VFRzJwTTltbmRFejYzMEVnQ2NOM2Ztb1prSmdGaFRKZUNZVXlZZjRSOFwvR0djMjNTSGM1UjhhSlVOczZmV1IiLCJtYWMiOiJjNmFmMDY5ODlkZjA1ZjhlNjIxNTYyNTE3ZmJlNTRiNzcyYjU1ODI2NDk4ODk5OGYyYTA0MmJmZDE0YjRjOGNiIn0%3D',
     '_gat': '1',
 }
 
@@ -25,17 +26,26 @@ headers = {
 }
 
 
-counter = 2
-while counter <= 2933:
+
+start = 0
+limit = 15
+while start <= 200:
     page_number = 1
     EXP_DATA = {}
     EXP_DATA[page_number] = {}
-    response = requests.get(f'https://www.exploit-db.com/?draw={counter}&columns%5B0%5D%5Bdata%5D=date_published&columns%5B0%5D%5Bname%5D=date_published&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=download&columns%5B1%5D%5Bname%5D=download&columns%5B1%5D%5Bsearchable%5D=false&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=application_md5&columns%5B2%5D%5Bname%5D=application_md5&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=verified&columns%5B3%5D%5Bname%5D=verified&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=description&columns%5B4%5D%5Bname%5D=description&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=type_id&columns%5B5%5D%5Bname%5D=type_id&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=platform_id&columns%5B6%5D%5Bname%5D=platform_id&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=author_id&columns%5B7%5D%5Bname%5D=author_id&columns%5B7%5D%5Bsearchable%5D=false&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B8%5D%5Bdata%5D=code&columns%5B8%5D%5Bname%5D=code.code&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=true&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B9%5D%5Bdata%5D=id&columns%5B9%5D%5Bname%5D=id&columns%5B9%5D%5Bsearchable%5D=false&columns%5B9%5D%5Borderable%5D=true&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=9&order%5B0%5D%5Bdir%5D=desc&start=0&length=15&search%5Bvalue%5D=&search%5Bregex%5D=false&author=&port=&type=&tag=&platform=&_=1620118525455', headers=headers, cookies=cookies)
+    print(start)
 
-    for exp_counter in range(14):
+    url = f'https://www.exploit-db.com/?draw=3&columns%5B0%5D%5Bdata%5D=date_published&columns%5B0%5D%5Bname%5D=date_published&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=download&columns%5B1%5D%5Bname%5D=download&columns%5B1%5D%5Bsearchable%5D=false&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=application_md5&columns%5B2%5D%5Bname%5D=application_md5&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=verified&columns%5B3%5D%5Bname%5D=verified&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=description&columns%5B4%5D%5Bname%5D=description&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=type_id&columns%5B5%5D%5Bname%5D=type_id&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=platform_id&columns%5B6%5D%5Bname%5D=platform_id&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=author_id&columns%5B7%5D%5Bname%5D=author_id&columns%5B7%5D%5Bsearchable%5D=false&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B8%5D%5Bdata%5D=code&columns%5B8%5D%5Bname%5D=code.code&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=true&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B9%5D%5Bdata%5D=id&columns%5B9%5D%5Bname%5D=id&columns%5B9%5D%5Bsearchable%5D=false&columns%5B9%5D%5Borderable%5D=true&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=9&order%5B0%5D%5Bdir%5D=desc&start={start}&length={limit}&search%5Bvalue%5D=&search%5Bregex%5D=false&author=&port=&type=&tag=&platform=&_=1620284336350'
+    response = requests.get(url, headers=headers, cookies=cookies)
+    print(response.text)
+    
+    for exp_counter in range(15):
+        print(exp_counter)
         
         
         exp_id = response.json()['data'][exp_counter]['id']
+        
+        # print(exp_id)
         # print(response.text)
 
         cookies = {
@@ -81,9 +91,16 @@ while counter <= 2933:
 
         if exp_id not in EXP_DATA[page_number]: 
             EXP_DATA[page_number][exp_id]  = {data: exp_list, detail : soup.find('pre').text}
-    page_number += 1 
-    counter += 1 
+        
+    print(f"done with page {page_number}")
     
+            
+    page_number += 1 
+    start += 15
+   
+    print(len(EXP_DATA))
+   
+
 
 
 
